@@ -3,7 +3,7 @@ title:  Análisis Demográfico Aplicado, Tendencias para El Salvador
 blinded: 0
 authors: 
 - name: Universidad Centroamericana José Simeón Cañas __(UCA)__
-thanks: Elaborado por Elias Preza.
+thanks: Elaborado por Elias Prezar.
 #affiliation:  
  # - name: Author 2
 #affiliation: Department of ZZZ, University of WWW
