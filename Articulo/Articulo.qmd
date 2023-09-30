@@ -1,0 +1,171 @@
+---
+title:  Análisis Demográfico Aplicado, Tendencias para El Salvador
+blinded: 0
+authors: 
+- name: Universidad Centroamericana José Simeón Cañas __(UCA)__
+thanks: Elaborado por Elias PrezaR.
+#affiliation:  
+ # - name: Author 2
+#affiliation: Department of ZZZ, University of WWW
+abstract: 
+  
+  El presente artículo muestra en su primera parte, un resumen general del sitio web de demografía elaborado para explicar los conceptos, métodos y aplicaciones de la demografía, la ciencia que estudia las poblaciones humanas. El sitio contiene 10 secciones que abordan temas como el análisis demográfico, la natalidad, la mortalidad, la migración, la fecundidad, la estructura y la dinámica poblacional. El sitio también incluye ejercicios prácticos y ejemplos con datos de El Salvador y está dirigido a estudiantes, profesores e investigadores interesados en la demografía, ver referencia <https://eliaspreza.quarto.pub/demografia/>.
+bibliography: bibliography.bib
+output: rticles::asa_article
+editor_options:
+  
+  chunk_output_type: console
+format:
+  pdf:
+    toc: true
+    toc-title: Índice
+    number-sections: true
+    colorlinks: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{=tex}
+\section{La Demografía}
+\label{sec:Demografía}
+```
+\subsection{Conceptualización básica}
+
+La demografía es una ciencia que tiene como objeto de análisis e investigación científica a la población; entendida ésta como un conjunto de individuos, constituido de forma estable, ligado por vínculos de reproducción e identificado por características territoriales, políticas, jurídicas, étnicas o religiosas" (Livi-Bacci, 1993: 9). La unidad estadística mínima de observación de la demografía es **el individuo** [@Izcara2009];
+
+::: callout-important
+Acotado el concepto de población, la demografía **puede definirse como una ciencia social** que mide y explica los acontecimientos y procesos determinantes de la formación, la conservación, el crecimiento o incluso la desaparición de las poblaciones. El primer aspecto, la medición de la dinámica de las poblaciones, se denomina análisis demográfico.
+:::
+
+Otro concepto dado por CEPAL [@cepal2014datos]:
+
+::: callout-tip
+Si se recurre a la definición de la demografía como la "ciencia cuyo objeto es el estudio de las poblaciones humanas y que trata de su dimensión, estructura, evolución y caracteres generales, considerados principalmente desde un punto de vista cuantitativo" (Naciones Unidas e IUSSP, 1985, pág. 10), ya se tiene prácticamente determinado el alcance de los datos básicos que se manejarán. La demografía, en esencia, no es otra cosa que el estudio de la dimensión y composición de las poblaciones humanas, y principalmente de sus mecanismos de evolución
+:::
+
+\subsection{Análisis demográfico}
+
+Citado de [@henry1981demografia]: La observación nos facilita los datos en estado bruto, en forma de número absolutos de personas o acontecimientos, repartidos en categorías más o menos numerosas. Estos datos brutos, que pueden parecer simples para una mente superficial, son en realidad el fruto de combinaciones o de mezclas muy complicadas en las que intervienen cantidad de elementos, factores. El análisis tiene por objeto deshacer esta madejada, reducir esta complejidad, separar los factores, aislar los fenómenos simples, eliminar las impurezas, las influencias parásitas. Sin este análisis sería imposible comprender como se desarrollan y encadenan los fenómenos demográficos y, por lo tanto, prever, aún de una forma sumaria, su evolución futura. Este análisis no se termina nunca: a medida que se avanza se descubren nuevos elementos, nuevos factores; pero, afortunadamente de esto no resulta una complicación creciente, pues un nuevo factor puede reemplazar con ventaja varios de los factores utilizados anteriormente.
+
+::: callout-important
+Una definición más precisa del análisis demográfico, sería la que da la Unión Internacional para el Estudio Científico de la Población, IUSSP en sus siglas en inglés: «El análisis demográfico es la parte de la demografía que tiene por objeto controlar el efecto del volumen y de la estructura sobre los fenómenos demográficos, identificar los efectos de cada fenómeno demográfico de los efectos de otros..., estudiar las relaciones entre los fenómenos demográficos y la situación de la población en distintos momentos\>\>
+:::
+
+::: callout-caution
+La demografía se centra en cinco aspectos de la población humana: i) el tamaño; ii) la distribución; iii) la composición; iv) la dinámica, y v) los determinantes y consecuencias socioeconómicas del cambio poblacional.
+:::
+
+
+En un esquema resumen el análisis demográfico plantea estudiar de forma cuantitativa lo siguiente [@cepal2014datos] :
+
+![Tipos de estudios demográficos](Imagenes/Esquema1.jpg)
+
+![Dinámica demográfica](Imagenes/Esquema21.jpg)
+
+![Contexto del analísis demográfico](Imagenes/Esquema31.jpg)
+
+
+El análisis demográfico no es toda la demografía, aunque algún autor quiera verlo así [@Susino2016]. Es una parte específica, una disciplina más cerrada, que entronca con cierto empirismo positivista del pasado y que tiende a quedarse en la explicación de los procesos demográficos en las causas más inmediatas y cuantificables. Podríamos decir que tiende a explicar lo demográfico por lo demográfico.
+
+\subsection{Variables stock y variables flujo}
+
+El conocimiento de la situación y la evolución de una población pasa por la medición de dos aspectos fundamentales [@Susino2016]:
+
+-   Por una parte, el referido a su volumen o tamaño en un momento dado, que es por lo que primero solemos preguntarnos: cuántas personas hay en la población. Además, como toda población es un conjunto de individuos, podemos atender a las características de estos que son más relevantes a efectos demográficos, el sexo y la edad. A la composición de la población según tales características nos referiremos cuando hablamos de la **estructura de la población**.
+
+-   Otro se refiere a lo que ocurre a esa población que sea de interés demográfico; es decir, **acontecimientos, sucesos o eventos** demográficos que afectan a los individuos que componen la población. Un autor los define como todo «hecho que concierne a un individuo y que afecta directamente a la estructura de las poblaciones y su evolución» (Pressat, 1987, 12). Por ejemplo, nacimientos, defunciones o migraciones. Sin embargo, otros acontecimientos, como matrimonios o divorcios, también afectan a la dinámica de las poblaciones, aunque sean indirectamente, aumentando o disminuyendo la probabilidad de tener hijos, y también son considerados acontecimientos demográficos. Un fenómeno demográfico es el conjunto de acontecimientos de una categoría dada. Así el conjunto de las defunciones la mortalidad y el de matrimonios la nupcialidad.
+
+Los acontecimientos que constituyen los fenómenos demográficos se producen a lo largo del tiempo, necesitan del tiempo para su medición, su cuantificación tiene que ser referida a un lapso de tiempo para tener sentido, **son flujos o variables flujo**. Son acontecimientos demográficos, siempre referidos a poblaciones de base territorial, los siguientes:
+
+-   Los nacimientos, cuyo conjunto forma el fenómeno de la natalidad.
+
+-   Las defunciones, cuya agrupación forma la mortalidad.
+
+-   Las migraciones, para cuyo fenómeno no tenemos una palabra parecida a las anteriores (no existe en castellano «migrabilidad») por lo que nos referimos a él como migración.
+
+-   Los matrimonios, tomados en su conjunto constituyen el fenómeno de la nupcialidad.
+
+-   Los divorcios, que conforman el fenómeno del divorcio (tampoco existe en el diccionario la palabra \<\<divorcialidad\>\> aunque a veces algunos demógrafos la emplean).
+
+
+\subsection{Ecuación compensadora}
+
+Es una fórmula demográfica básica utilizada para estimar el cambio total de población entre dos fechas dadas, o para estimar cualquier componente desconocido del movimiento de población a partir de otros componentes conocidos. La ecuación compensadora abarca todos los componentes del movimiento de población: nacimientos, defunciones, inmigración y emigración
+
+::: callout-important
+$$
+\mathrm{P}_{\mathrm{t}}=\quad \mathrm{Po}+\mathrm{B}-\mathrm{D} \pm(\mathrm{I}-\mathrm{E})
+$$ En dónde: Pt= Población Total, P0= Población inicial, B= Nacimientos, D= Defunciones, I= Inmigración y E= Emigración
+:::
+
+\subsection{Ejemplos de poblaciones}
+
+Podemos mencionar como ejemplo de poblaciones las siguientes [@Susino2016]:
+
+-   Sobre una base territorial: la población española, que es como normalmente nos referimos a la población que vive en España, independientemente de su nacionalidad y del tiempo que lleve residiendo en el país. Los mecanismos de reproducción serían el nacimiento, la defunción y la migración.
+
+-   Distinta es la población de nacionalidad española, para la que el criterio territorial ha desaparecido dejando su lugar al jurídico político que es la nacionalidad, con independencia de que se viva en España o cualquier otro lugar del mundo. En este caso la clave de la reproducción son los distintos procesos de adquisición (por nacimiento o nacionalización) y pérdida de la nacionalidad (o muerte)
+
+-   La población musulmana sería una población definida en términos religiosos, aunque no siempre es fácil definir quiénes son musulmanes y quiénes no. A veces estas definiciones que apelan a la religión se mueven más en el terreno de los criterios étnicos que de los religiosos. En el caso del judaísmo, parece que la práctica religiosa no determina exclusivamente ser judío, porque hay ateos que se definen e identificamos como judíos.
+
+-   La población de etnia albanesa que vive en Kosovo, frente a los serbios, es una definición claramente étnica. Lo suficiente para que ellos se identifiquen como pertenecientes o no y hace años entrasen en un conflicto que condujo a la guerra.
+
+-   La población escolar o estudiante, especialmente la que está en la enseñanza reglada, es fácilmente delimitable porque ha de estar matriculada. Este es el acontecimiento que marca la entrada en la población escolar
+
+-   La población activa, que es la que está ocupada o busca activamente empleo aunque esté en paro. Incluso, también la población de empleados de la industria, aunque esta, a veces está sometida a rápidos flujos de entradas y salidas que la hacen algo inestable, sobre todo en épocas de crisis y cada vez más como consecuencia de la precarización e inestabilidad de las condiciones de trabajo.
+
+-   Los funcionarios del sector público, claramente separables de los demás porque está sometidos a procesos de entrada bien definidos (concursos-oposición), al igual que de salida (jubilación, muerte, excedencia)
+
+\subsection{Concepto de tasa}
+
+Referirse a cantidades absolutas de sucesos o de individuos, flujos o efectivos, no permite hacer demasiadas comparaciones de distintas poblaciones entre sí. Que en una muy grande haya más defunciones que en otra población más pequeña es lo que cabe esperar, y nada nos dice sobre la mayor o menor mortalidad en una u otra población. Para poder comparar es necesario trabajar con cantidades relativas, refiriendo la cantidad de sucesos a la cantidad de individuos que pueden experimentarlos.
+
+Tasas y probabilidades miden la frecuencia relativa con la que aparece un suceso en una población; es decir, que referimos un flujo a un efectivo o stock. Expresados como fracciones, el flujo estará en el numerador y el efectivo o stock estará en el denominador.
+
+La diferencia entre tasas y probabilidades estriba en:
+
+-   Las tasas refieren los sucesos a la población media.
+
+-   Las probabilidades o cocientes, que también así se llaman siguiendo la terminología francesa (Pressat, 1987), refieren los acontecimientos a la población inicial.
+
+\subsection{Concepto de razones}
+
+Tasas y probabilidades ponen en relación magnitudes de naturaleza distinta: un flujo en el numerador y un efectivo en el denominador. Pero en demografía es posible calcular otro tipo de indicadores. Proporciones, razones e índices ponen en relación magnitudes de la misma naturaleza: flujos con flujos o efectivos con efectivos. Se llama **proporción** e la relación entre los efectivos o dos flujos si el numerador constituye parte del denominador. Por ejemplo, la proporción de mayores se calculará dividiendo el efectivo o stock de mayores entre el efectivo o stock de la población total, poniendo en relación dos efectivos; también la proporción de nacimientos extra matrimoniales que pone en relación de dos flujos. Cuándo se expresa en tanto por cien, la proporción también se llama **porcentaje**. Respecto a las proporciones se deben hacer dos advertencias:
+
+::: callout-warning
+-   Algunos autores utilizan el término proporción en sentido más genérico y eso obliga a distinguir entre proporciones de primera categoría cuando se trata de una parte respecto al todo (Vinuesa, 1994), mientras que en caso contrario serían proporciones de segunda categoría. Este uso no es generalmente aceptado por lo que no distinguiremos entre proporciones de primera o segunda categoría.
+
+-   Frecuentemente se llama tasas a indicadores que demográficamente son proporciones, como es el caso de la tasa de actividad o la tasa de paro. En demografía una tasa mide la frecuencia relativa con la que un suceso aparece en una población (UIECP, 1985), pone en relación un flujo y un efectivo, no dos flujos o dos efectivos o stocks. Aunque se llamen tasas en el lenguaje cotidiano, no son tasas en sentido demográfico estricto (tasa de paro o actividad).
+:::
+
+
+```{=tex}
+\section{Análisis Demográfico Aplicado}
+\label{sec:Análisis}
+```
+
+El Objetivo de la presente sección es aplicar de forma general y básica, algunas medidas de análisis demográfico, provenientes de la encuesta de Hogares de Propósitos Múltiples EHPM 2022, y otras fuentes de datos, por medio del lenguaje R.
+
+\subsection{Preparación para análisis en lenguaje R:}
+
+Como primer paso se descargará la información fuente para iniciar el trabajo de análisis
+
+
+::: callout-important
+-   Descargar la base de datos del siguiente enlace: [EHPM 2022](https://1drv.ms/f/s!AifvtILyKc7ej_l3wSd0q04r2g9mLA?e=Yri4t9 "Acceso a la EHPM")
+
+-   Descargar la [Boleta EHPM 2022](https://1drv.ms/f/s!AifvtILyKc7ej_l3wSd0q04r2g9mLA?e=Yri4t9) , el [Diccionario de Datos EHPM 2022](https://1drv.ms/f/s!AifvtILyKc7ej_l3wSd0q04r2g9mLA?e=Yri4t9) y [Resultados EHPM 2022](https://1drv.ms/f/s!AifvtILyKc7ej_l3wSd0q04r2g9mLA?e=Yri4t9)
+
+-   Después de descargar la base de datos y el diccionario, cree una carpeta denomibada "Bases" en el directorio de trabajo y luego copie los archivos adentro de dicha carpeta. El diccionario de datos es trabajado con el paquete codebook y exportado a formato csv.
+:::
+
+
+
+```{=tex}
+\section{Referencias Bibliográficas}
+\label{sec:Bibliografía}
+```
