@@ -235,6 +235,40 @@ RD2_ss<-(PobDep_ss/PobOcup2_ss)
 kable(RD2_ss)
 
 
+#--Forma 2
+
+#-Menores de 16 años
+
+M16_ss2<-ss_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106<16) %>%
+  dplyr::summarise(PoblacionMenor16=sum(fac00)) 
+
+M16_ss2
+
+#-Mayores de 64 años
+
+M64_ss2<-ss_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106>64) %>%
+  dplyr::summarise(PoblacionMayor64=sum(fac00)) 
+
+M64_ss2
+
+#Numerador
+SumM16M64_ss2<-sum(M16_ss2,M64_ss2)
+SumM16M64_ss2
+
+#-Denominador
+PobEt_ss2<-sum(ss_p$fac00)-SumM16M64_ss2
+PobEt_ss2
+
+RD1_ss2<-(SumM16M64_ss2/PobEt_ss2)*100
+
+kable(RD1_ss2)
+
+
+
 #================================================================Santa Ana
 #-------------------------------------Estimando población ocupada
 PobOcup2_sa<-sa_p %>% 
@@ -259,6 +293,38 @@ RD2_sa<-(PobDep_sa/PobOcup2_sa)
 
 kable(RD2_sa)
 
+
+#--Forma 2
+
+#-Menores de 16 años
+
+M16_sa2<-sa_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106<16) %>%
+  dplyr::summarise(PoblacionMenor16=sum(fac00)) 
+
+M16_sa2
+
+#-Mayores de 64 años
+
+M64_sa2<-sa_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106>64) %>%
+  dplyr::summarise(PoblacionMayor64=sum(fac00)) 
+
+M64_sa2
+
+#Numerador
+SumM16M64_sa2<-sum(M16_sa2,M64_sa2)
+SumM16M64_sa2
+
+#-Denominador
+PobEt_sa2<-sum(sa_p$fac00)-SumM16M64_sa2
+PobEt_sa2
+
+RD1_sa2<-(SumM16M64_sa2/PobEt_sa2)*100
+
+kable(RD1_sa2)
 
 #================================================================La Libertad
 #-------------------------------------Estimando población ocupada
@@ -285,6 +351,39 @@ RD2_la<-(PobDep_la/PobOcup2_la)
 kable(RD2_la)
 
 
+
+#--Forma 2
+
+#-Menores de 16 años
+
+M16_la2<-la_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106<16) %>%
+  dplyr::summarise(PoblacionMenor16=sum(fac00)) 
+
+M16_la2
+
+#-Mayores de 64 años
+
+M64_la2<-la_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106>64) %>%
+  dplyr::summarise(PoblacionMayor64=sum(fac00)) 
+
+M64_la2
+
+#Numerador
+SumM16M64_la2<-sum(M16_la2,M64_la2)
+SumM16M64_la2
+
+#-Denominador
+PobEt_la2<-sum(la_p$fac00)-SumM16M64_la2
+PobEt_la2
+
+RD1_la2<-(SumM16M64_la2/PobEt_la2)*100
+
+kable(RD1_la2)
+
 #================================================================San Miguel
 #-------------------------------------Estimando población ocupada
 PobOcup2_sm<-sm_p %>% 
@@ -308,6 +407,41 @@ PobDep_sm
 RD2_sm<-(PobDep_sm/PobOcup2_sm)
 
 kable(RD2_sm)
+
+
+
+#--Forma 2
+
+#-Menores de 16 años
+
+M16_sm2<-sm_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106<16) %>%
+  dplyr::summarise(PoblacionMenor16=sum(fac00)) 
+
+M16_sm2
+
+#-Mayores de 64 años
+
+M64_sm2<-sm_p %>%
+  dplyr::select(r106,fac00) %>% 
+  dplyr::filter(r106>64) %>%
+  dplyr::summarise(PoblacionMayor64=sum(fac00)) 
+
+M64_sm2
+
+#Numerador
+SumM16M64_sm2<-sum(M16_sm2,M64_sm2)
+SumM16M64_sm2
+
+#-Denominador
+PobEt_sm2<-sum(sm_p$fac00)-SumM16M64_sm2
+PobEt_sm2
+
+RD1_sm2<-(SumM16M64_sm2/PobEt_sm2)*100
+
+kable(RD1_sm2)
+
 
 
 
