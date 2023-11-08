@@ -28,12 +28,18 @@ library(dygraphs)#--Uso para dygraphs
 #=======================================================================StartChunk
 #--------------------------Abriendo y explorando la EHPM
 
-DF<-read_sav("Bases/EHPM 2022.sav")#---Se lee EHPM de datos
-Dic <- read_csv("Bases/Diccionario.csv")#---Se lee diccionario
-View(Dic)#---Ver Diccionario
-View(EHPM)#---Ver EHPM de datos
+#DF<-read_sav("Bases/EHPM 2022.sav")#---Se lee EHPM de datos
+#Dic <- read_csv("Bases/Diccionario.csv")#---Se lee diccionario
+#View(Dic)#---Ver Diccionario
+#View(EHPM)#---Ver EHPM de datos
 
 #=======================================================================EndChunk
+
+
+#=====================================================================================================
+#---Link:https://data.princeton.edu/eco572/periodlt ,
+#---creditos del código al Dr Germán Rodríguez Princeton University
+#====================================================================================================
 
 #====Se llama la base de datos
 
@@ -371,5 +377,86 @@ dygraph(tv)%>% dyRangeSelector()
 dygraph(tv, main="Mortalidad")%>%dyOptions(drawPoints = TRUE, pointSize = 2) %>% 
   dyShading(from = "5", to = "10",color = "#FFE6E6") %>%
   dyShading(from = "40", to = "55",color = "#CCEBD6")
+
+
+
+#======================================================================================
+#-----------------Código para construir el ejercicio
+
+#-------Para manejo de bases
+library(tidyverse)
+library(sjmisc)
+library(haven)
+library(jsonlite)
+library(readxl)
+library(foreign)
+library(apyramid)
+library(pyramid)
+library(wpp2019)
+library(ipumsr)
+library(devtools)
+library(forcats)
+library(REAT)
+library(ineq )
+library(codebook)
+library(dygraphs)
+
+
+
+DF_2012<-read_sav("Bases/SEC01_2012.sav")
+DF_2013<-read_sav("Bases/SEC01_2013.sav")
+DF_2014<-read_sav("Bases/SEC01_2014.sav")
+DF_2015<-read_sav("Bases/SEC01_2015.sav")
+DF_2016<-read_sav("Bases/SEC01_2016.sav")
+
+glimpse(DF_2012)
+glimpse(DF_2013)
+glimpse(DF_2014)
+glimpse(DF_2015)
+glimpse(DF_2016)
+
+
+
+#-------------------------------------------------------
+#======================Población de "mujeres"
+#-------------------------------------------------------
+
+#----Código para preparar la base o tabla con población
+Pob_2012<-DF_2012 %>% 
+  dplyr::select(R104,R106,FAC01) %>% 
+  dplyr::filter(R104==2&(R106==0|R106==1|R106==5|R106==10|R106==15|R106==20|R106==25|R106==30|R106==35|R106==35|
+                           R106==40|R106==45|R106==50|R106==55|R106==60|R106==65|R106==70|R106==75|R106==80|R106==85)) %>% 
+  dplyr::group_by(R106) %>% 
+  dplyr::summarise(Pop=sum(FAC01))
+
+
+Pob_2013<-DF_2013 %>% 
+  dplyr::select(R104,R106,FAC01) %>% 
+  dplyr::filter(R104==2&(R106==0|R106==1|R106==5|R106==10|R106==15|R106==20|R106==25|R106==30|R106==35|R106==35|
+                           R106==40|R106==45|R106==50|R106==55|R106==60|R106==65|R106==70|R106==75|R106==80|R106==85)) %>% 
+  dplyr::group_by(R106) %>% 
+  dplyr::summarise(Pop=sum(FAC01))
+
+Pob_2014<-DF_2014 %>% 
+  dplyr::select(R104,R106,FAC01) %>% 
+  dplyr::filter(R104==2&(R106==0|R106==1|R106==5|R106==10|R106==15|R106==20|R106==25|R106==30|R106==35|R106==35|
+                           R106==40|R106==45|R106==50|R106==55|R106==60|R106==65|R106==70|R106==75|R106==80|R106==85)) %>% 
+  dplyr::group_by(R106) %>% 
+  dplyr::summarise(Pop=sum(FAC01))
+
+Pob_2015<-DF_2015 %>% 
+  dplyr::select(r104,r106,fac00) %>%
+  dplyr::filter(r104==2&(r106==0|r106==1|r106==5|r106==10|r106==15|r106==20|r106==25|r106==30|r106==35|r106==35|
+                           r106==40|r106==45|r106==50|r106==55|r106==60|r106==65|r106==70|r106==75|r106==80|r106==85)) %>% 
+  dplyr::group_by(r106) %>% 
+  dplyr::summarise(Pop=sum(fac00))
+
+Pob_2016<-DF_2016 %>% 
+  dplyr::select(r104,r106,fac00) %>% 
+  dplyr::filter(r104==2&(r106==0|r106==1|r106==5|r106==10|r106==15|r106==20|r106==25|r106==30|r106==35|r106==35|
+                           r106==40|r106==45|r106==50|r106==55|r106==60|r106==65|r106==70|r106==75|r106==80|r106==85)) %>% 
+  dplyr::group_by(r106) %>% 
+  dplyr::summarise(Pop=sum(fac00))
+
 
 
