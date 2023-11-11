@@ -1,0 +1,80 @@
+
+https://mics.unicef.org/surveys
+
+In this compressed WINZIP folder you will find the MICS5 datasets for the selected 
+country. 
+
+Five SPSS data files were produced, corresponding to the units of analysis: 
+Households - hh.sav 
+Household members - hl.sav
+Women in reproductive age (15-49 years of age) – wm.sav
+Birth history - bh.sav 
+Mothers or primary caretakers of children under the age of five – ch.sav
+
+The characteristics of the data such as sample size, weights, variable labels and 
+information on recoded or imputed variables can be found within the survey archive 
+which will be made available shortly on http://mics.unicef.org/surveys
+The survey archive will also contain the questionnaires and information on the sampling and 
+implementation of the survey.  
+
+Access Conditions:
+
+Survey datasets are distributed at no cost for legitimate research, with the condition that 
+we receive a description of the objectives of any research project that will be using the 
+data prior to authorizing their distribution. 
+
+Copies of all reports and publications based on the requested data must be sent to the 
+following:
+
+1) 
+Name:Dr. Ernesto Benjamín Pleités Sandoval   
+Affiliation: MoH
+Address: Calle Arce #827, San Salvador, El salvador
+email:epleites@salud.gob.sv
+
+2) 
+Name: Begoña Arellano
+Affiliation: Deputy Representative, UNICEF CO
+Address: 
+Boulevard Santa Elena y Calle Alegría.  Edificio Interalia, 4o. Piso, 
+Santa Elena, Antiguo Cuscatlán. La Libertad, El Salvador, C.A.
+email:barellano@unicef.org
+
+En esta carpeta WINZIP comprimida encontrará los conjuntos de datos MICS5 para el seleccionado
+país.
+
+Se produjeron cinco archivos de datos SPSS, correspondientes a las unidades de análisis:
+Hogares - hh.sav
+Miembros del hogar - hl.sav
+Mujeres en edad reproductiva (15-49 años) – wm.sav
+Historia de nacimiento - bh.sav
+Madres o cuidadoras principales de niños menores de cinco años – ch.sav
+
+Las características de los datos, como el tamaño de la muestra, los pesos, las etiquetas de las variables y
+La información sobre las variables recodificadas o imputadas se puede encontrar en el archivo de la encuesta.
+que estará disponible en breve en http://mics.unicef.org/surveys
+El archivo de la encuesta también contendrá los cuestionarios y la información sobre el muestreo y
+implementación de la encuesta.
+
+Condiciones de Acceso:
+
+Los conjuntos de datos de encuestas se distribuyen sin costo alguno para investigaciones legítimas, con la condición de que
+Recibimos una descripción de los objetivos de cualquier proyecto de investigación que utilizará el
+datos antes de autorizar su distribución.
+
+Se deben enviar copias de todos los informes y publicaciones basados en los datos solicitados al
+siguiente:
+
+1)
+Nombre: Dra. Ernesto Benjamín Pleités Sandoval
+Afiliación: Ministerio de Salud
+Dirección: Calle Arce #827, San Salvador, El salvador
+correo electrónico:epleites@salud.gob.sv
+
+2)
+Nombre: Begoña Arellano
+Afiliación: Representante Adjunto, UNICEF CO
+DIRECCIÓN:
+Bulevar Santa Elena y Calle Alegría. Edificio Interalia, 4o. piso,
+Santa Elena, Antiguo Cuscatlán. La Libertad, El Salvador, C.A.
+correo electrónico:barellano@unicef.org
