@@ -19,15 +19,381 @@ library(githubinstall)#--Uso de Github
 library(data.table)#--Uso de data table
 library(httr)#--Uso sitio web
 library(zipR)#--Uso Zip
-library(dygraphs)
-library(plotly)
+library(dygraphs)#--Uso para gráficos dinámicos
+library(plotly)#--Uso para gráficos dinámicos
+library(FAOSTAT)#--Uso o API de FAO
+library(jsonlite)
+library(httr)
+library(openssl)
+library(curl)
+
+#==================================================================================================================================
+#/////////////////////////////////////////////////API Naciones Unidas
+#==================================================================================================================================
+# API Naciones Unidas Población=https://population.un.org/dataportal/about/dataapi
+# API https://population.un.org/dataportal/about/dataapi
 
 
-#--
-library(FAOSTAT)
+# Declares the base url for calling the API
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+
+# Creates the target URL, indicators, in this instance
+target <- paste0(base_url, "/indicators/")
+
+# Get the response, which includes data as well as information on pagination and number of records
+response <- fromJSON(target)
 
 
+# Get the first page of data
+df_Ind <- response$data
+
+# Loop until there are new pages with data
+while (!is.null(response$nextPage)){
+  
+  #call the API for the next page
+  response <- fromJSON(response$nextPage)
+  
+  #add the data of the new page to the data.frame with the data of the precious pages
+  df <- rbind(df, response$data)
+  
+}
+
+status_code(GET(target))
+
+#-----------------Example 2: Returning a list of geographical areas
+
+# Declares the base url for calling the API
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+
+# Update relative path to retrieve records on locations
+target <- paste0(base_url, "/locations/")
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_Loca<- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  
+  response <- fromJSON(response$nextPage)
+  df_Loca <- rbind(df_Loca, response$data)
+  
+}
+
+
+
+#---Example 3: Returning a single indicator for a single geographical area
+
+# Update the relative path to search for data on a specific indicator, location, and for specific years
+target <- paste0(base_url, "/data/indicators/1/locations/4/start/2005/end/2010")
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_Afga <- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  
+  response <- fromJSON(response$nextPage)
+  df_Afga<- rbind(df, response$data)
+  
+}
+
+df2_Afga <- df_Afga[(df_Afga$variant=="Median") & df_Afga$category=="All women", names(df_Afga) %in% c("timeMid", "value", "category", "variant")]
+df2_Afga <- df_Afga[(df_Afga$variant=="Median") , names(df_Afga) %in% c("timeMid", "value", "category", "variant")]
+
+
+p<-ggplot(df2_Afga,aes(x=timeMid, y=value,group=category, fill=category))+
+  geom_area()+
+  ggtitle("Prevalencia anticonceptiva: Cualquier método (Porcentaje)")
+p
+
+
+#//////////////////////////////Nicaragua
+# Update the relative path to search for data on a specific indicator, location, and for specific years
+
+target <- paste0(base_url, "/data/indicators/1/locations/558/start/2005/end/2011")
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_Nica<- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  
+  response <- fromJSON(response$nextPage)
+  df_Nica<- rbind(df,response$data)
+  
+}
+
+df2_Nica<- df_Nica[(df_Nica$variant=="Median") & df_Nica$category=="All women", names(df_Nica) %in% c("timeLabel","timeMid", "value", "category", "variant")]
+df2_Nica <- df_Nica[(df_Nica$variant=="Median") , names(df_Nica) %in% c("timeLabel","timeMid", "value", "category", "variant")]
+df2_Nica$category<- as.factor(df2_Nica$category)
+levels(df2_Nica$category)<- c("Total","Mujeres casadas o unión libre","Mujeres divorciadas")
+
+p<-ggplot(df2_Nica,aes(x=timeLabel, y=value,group=category, fill=category))+
+  geom_area()+
+  #ggtitle("Prevalencia anticonceptiva: Cualquier método (Porcentaje)")
+labs(title ="Nicaragua prevalencia de anticonceptivos: cualquier método",
+     subtitle ="(En porcentajes de personas 2005-2011)",
+     x = "Años", y = "Porcentaje",
+     caption = "Elaboración propia con información de ONU/Department of Economic and Social Affairs
+Population Division")
+p
+
+
+
+#====================================================
+# Update the relative path to search for data on a specific indicator, location, and for specific years
+# Declares the base url for calling the API
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+target <- paste0(base_url, "/data/indicators/1/locations/222/start/1990/end/2021")
+
+#--Otra forma de filtrar
+
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+Indicador<-1
+Pais<-222
+AñoI<-1990
+AñoF<-2021
+
+target<-paste0(base_url,"/data/indicators/",Indicador,"/locations/",Pais,"/start/",AñoI,"/end/",AñoF)
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_SV <- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  
+  response <- fromJSON(response$nextPage)
+  df_SV<- rbind(df_SV, response$data)
+  
+}
+
+#--------Graficando
+df2_SV <- df_SV[(df_SV$variant=="Median") , names(df_SV) %in% c("timeLabel","timeMid", "value", "category", "variant")]
+
+
+df2_SV$Estado <- as.factor(df2_SV$category)
+levels(df2_SV$Estado) <- c("Todas las Mujeres","Casadas o Unión Libre","Divorciadas")
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=value,group=Estado, fill=Estado))+
+  geom_area()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Prevalencia anticonceptiva, Cualquier método",
+       subtitle ="(En Porcentajes)",
+       x = "Años", y = "Porcentajes",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  #geom_text(data = df2_SV, aes(label = round(value,digits=2)),size = 4)+
+  facet_wrap(~Estado, ncol = 1,strip.position = "top") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=value,group=Estado, fill=Estado))+
+  geom_area()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Prevalencia anticonceptiva, Cualquier método",
+       subtitle ="(En Porcentajes)",
+       x = "Años", y = "Porcentajes",
+       caption = "Elaboración propia con información de Naciones Unidas") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+#=====================================================================================================
+
+#--Otra forma de filtrar
+
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+Indicador<-76
+Pais<-222
+AñoI<-1990
+AñoF<-1998
+
+target<-paste0(base_url,"/data/indicators/",Indicador,"/locations/",Pais,"/start/",AñoI,"/end/",AñoF)
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_SV <- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  response <- fromJSON(response$nextPage)
+  df_SV<- rbind(df_SV, response$data)
+}
+
+
+#--------Graficando
+df2_SV <- df_SV[(df_SV$variant=="Median"&df_SV$ageLabel=="0") , names(df_SV) %in% c("timeLabel","timeMid", "value", "sex","ageLabel", "variant")]
+
+
+df2_SV$Sexo <- as.factor(df2_SV$sex)
+levels(df2_SV$Sexo) <- c("Total","Mujeres","Hombres")
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=value, group=Sexo, fill=Sexo))+
+  geom_area() +
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Esperanza de vida E(x) - completa",
+       subtitle ="(En Edad, 1990-1998)",
+       x = "Años", y = "Edad",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  #geom_text(data = df2_SV, aes(label = round(value,digits=2)),size = 4)+
+  facet_wrap(~Sexo, ncol = 1,strip.position = "top") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=value, group=Sexo, fill=Sexo))+
+  geom_area()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Esperanza de vida E(x) - completa",
+       subtitle ="(En Edad, 1990-1998)",
+       x = "Años", y = "Edad",
+       caption = "Elaboración propia con información de Naciones Unidas")
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+#--Otras GRafica
+
+df2_SV<- df_SV[(df_SV$variant=="Median"& df_SV$sex=="Female") &
+                 (df_SV$ageLabel=="0"|df_SV$ageLabel=="5"|df_SV$ageLabel=="15"|df_SV$ageLabel=="25"|df_SV$ageLabel=="35"|
+                    df_SV$ageLabel=="45"|df_SV$ageLabel=="65"|df_SV$ageLabel=="85") ,
+               names(df_SV) %in% c("timeLabel","timeMid", "value", "sex","ageLabel", "variant")]
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=value, group=ageLabel, fill=ageLabel))+
+  geom_col()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Esperanza de vida E(x) Mujeres- completa",
+       subtitle ="(En Edades:0-5-15-25-35-45-65-85, 1990-1998)",
+       x = "Años", y = "Edad",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  geom_text(data = df2_SV, aes(label = round(value,digits=0)),size = 3)+
+  facet_wrap(~ageLabel, ncol = 2,strip.position = "top") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+#====================================
+
+#--Otra forma de filtrar
+
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+Indicador<-70
+Pais<-222
+AñoI<-1990
+AñoF<-2021
+
+target<-paste0(base_url,"/data/indicators/",Indicador,"/locations/",Pais,"/start/",AñoI,"/end/",AñoF)
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_SV <- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  response <- fromJSON(response$nextPage)
+  df_SV<- rbind(df_SV, response$data)
+}
+
+
+#--------Graficando
+frq(df2_SV$ageLabel)
+
+df2_SV<- df_SV[(df_SV$variant=="Median"& df_SV$sex=="Female") &
+                 (df_SV$ageLabel=="0-14"|df_SV$ageLabel=="15-24"|df_SV$ageLabel=="25-69"|df_SV$ageLabel=="70+"),
+               names(df_SV) %in% c("timeLabel","timeMid", "value", "sex","ageLabel", "variant")]
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=(value/1000), group=ageLabel, fill=ageLabel))+
+  geom_area()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Población Femenina",
+       subtitle ="(En grupos de Edad, 1990-2021 (En Miles de Personas))",
+       x = "Años", y = "Población (En Miles)",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  #geom_text(data = df2_SV, aes(label = round(value,digits=0)),size = 2)+
+  theme(legend.position = "bottom")+
+  facet_wrap(~ageLabel, ncol = 1,strip.position = "left") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=(value/1000), group=ageLabel, fill=ageLabel))+
+  geom_area()+
+  #ggtitle("El Salvador: Prevalencia anticonceptiva, Cualquier método (Porcentaje)")+
+  labs(title ="El Salvador: Población Femenina",
+       subtitle ="(En grupos de Edad, 1990-2021 (En Miles de Personas))",
+       x = "Años", y = "Población (En Miles)",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  #geom_text(data = df2_SV, aes(label = round(value,digits=0)),size = 2)+
+  theme(legend.position = "bottom")
+#facet_wrap(~ageLabel, ncol = 1,strip.position = "left") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+#====================================Tasa Bruta de Mortalidad
+
+#--Otra forma de filtrar
+
+base_url <- "https://population.un.org/dataportalapi/api/v1"
+Indicador<-59
+Pais<-222
+AñoI<-1980
+AñoF<-2025
+
+target<-paste0(base_url,"/data/indicators/",Indicador,"/locations/",Pais,"/start/",AñoI,"/end/",AñoF)
+
+# Call the API
+response <- fromJSON(target)
+
+# Get the first page of data
+df_SV <- response$data
+
+# Get the other pages with data
+while (!is.null(response$nextPage)){
+  response <- fromJSON(response$nextPage)
+  df_SV<- rbind(df_SV, response$data)
+}
+
+
+
+
+#--------Graficando
+df2_SV <- df_SV[(df_SV$variant=="Median"&df_SV$ageLabel=="Total") , names(df_SV) %in% c("timeLabel","timeMid", "value", "sex","ageLabel", "variant")]
+
+p<-ggplot(df2_SV,aes(x=timeLabel, y=(value),group=ageLabel, fill=ageLabel))+
+  geom_line()+
+  labs(title ="El Salvador: Tasa Bruta de Mortalidad",
+       subtitle ="(Muertes por cada mil personas, ambos sexos)",
+       x = "Años", y = "Tasa por cada mil habitantes",
+       caption = "Elaboración propia con información de Naciones Unidas")+
+  #geom_text(data = df2_SV, aes(label = round(value,digits=0)),size = 2)+
+  theme(legend.position = "bottom")
+
+#facet_wrap(~sex, ncol = 1,strip.position = "left") 
+
+p+scale_fill_brewer(palette="YlOrBr")
+
+
+
+
+#==========================================================================================================
 #====================================================================================Trabajando con FAOSTAT
+#==========================================================================================================
 
 # Buscar el codigo de pais que esta disponible
 metadata_area <- read_dimension_metadata("RL", "area")
